@@ -16,12 +16,7 @@ namespace AprioriTID.DAO
         public static List<Step> steps;
         public static int MinSup;
         public static int TotalTransaction = 0;
-        public static int ConvertToId(string id)
-        {
-            var tmp = id.Split('H');
-            var result = Int32.Parse(tmp[1]);
-            return result;
-        }
+       
 
         public static void WriteToFile(string s)
         {
@@ -120,7 +115,7 @@ namespace AprioriTID.DAO
                 for (int i = 0; i < reader.FieldCount - 1; i++)
                 {
                     
-                        int id = ConvertToId(reader.GetName(i + 1));
+                        int id = ItemCovnert.ConvertToId(reader.GetName(i + 1));
                         I item = new I(reader.GetName(i + 1), Int32.Parse(reader[i + 1].ToString()), id);
                         set.Add(item);
                         ItemSet.Add(item);

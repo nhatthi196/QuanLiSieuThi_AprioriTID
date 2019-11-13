@@ -31,5 +31,12 @@ namespace AprioriTID.DAO
             s += "}";
             return s;
         }
+
+        public static int ConvertToId(string id)
+        {
+            var tmp = id.Split('H');
+            var result = Int32.Parse(tmp[1]);
+            return result;
+        }
     }
 }
