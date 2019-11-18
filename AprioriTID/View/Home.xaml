@@ -32,14 +32,16 @@
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="0">
                             <Border BorderBrush="Black" BorderThickness="0,1,5,1">
-                                <StackPanel>
-                                    <TextBlock FontSize="16" TextAlignment="Center" Padding="5"><Bold>DANH SÁCH GIAO TÁC THỎA MIN SUPPORT (TẬP D)</Bold></TextBlock>
-                                    <DockPanel LastChildFill="True">
-                                        <DataGrid x:Name="D_dataGrid" DockPanel.Dock="Top" Padding="0,0,5,0" IsReadOnly="True" GridLinesVisibility="Vertical">
+                                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                    <StackPanel>
+                                        <TextBlock FontSize="16" TextAlignment="Center" Padding="5"><Bold>DANH SÁCH GIAO TÁC THỎA MIN SUPPORT (TẬP D)</Bold></TextBlock>
+                                        <DockPanel LastChildFill="True">
+                                            <DataGrid x:Name="D_dataGrid" DockPanel.Dock="Top" Padding="0,0,5,0" IsReadOnly="True" GridLinesVisibility="Vertical" Loaded="D_dataGrid_Loaded">
 
-                                        </DataGrid>
-                                    </DockPanel>
-                                </StackPanel>
+                                            </DataGrid>
+                                        </DockPanel>
+                                    </StackPanel>
+                                </ScrollViewer>
                             </Border>
                         </Grid>
                         <Grid Grid.Column="1">
@@ -47,7 +49,7 @@
                                 <StackPanel >
                                     <TextBlock FontSize="16" TextAlignment="Center" Padding="5"><Bold>BẢNG MÃ HÓA ITEM</Bold></TextBlock>
                                     <DockPanel LastChildFill="True">
-                                        <DataGrid x:Name="I_dataGrid" DockPanel.Dock="Top" Padding="5,0,0,0" GridLinesVisibility="All" IsReadOnly="True">
+                                        <DataGrid x:Name="I_dataGrid" DockPanel.Dock="Top" Padding="5,0,0,0" GridLinesVisibility="All" IsReadOnly="True" Loaded="I_dataGrid_Loaded">
 
                                         </DataGrid>
                                     </DockPanel>

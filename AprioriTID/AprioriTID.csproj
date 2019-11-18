@@ -79,6 +79,12 @@
     <Compile Include="DAO\ItemCovnert.cs" />
     <Compile Include="Model\ItemSet.cs" />
     <Compile Include="Model\Transaction.cs" />
+    <Compile Include="View\FIView.xaml.cs">
+      <DependentUpon>FIView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ProcessSupportPage.xaml.cs">
+      <DependentUpon>ProcessSupportPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Product.cs" />
     <Compile Include="DAO\TableSoure.cs" />
     <Compile Include="View\FinalFI.xaml.cs">
@@ -88,6 +94,10 @@
       <DependentUpon>Process.xaml</DependentUpon>
     </Compile>
     <Page Include="View\FinalFI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FIView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -113,6 +123,10 @@
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Page Include="View\Process.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ProcessSupportPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

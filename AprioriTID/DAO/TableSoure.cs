@@ -5,7 +5,9 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
- 
+using System.Windows;
+using System.Windows.Controls;
+
 namespace AprioriTID.DAO
 {
   public static class TableSoure
@@ -80,6 +82,15 @@ namespace AprioriTID.DAO
                 table.Rows.Add(row);
             }
             return table;
-        }    
+        }
+        
+        public static void setGridColumnWidth(DataGrid dataGrid)
+        {
+            foreach(var column in dataGrid.Columns)
+            {
+                column.MinWidth = column.ActualWidth;
+                column.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AprioriTID.DAO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,31 +11,29 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using MahApps.Metro.Controls;
-using AprioriTID.DAO;
 
 namespace AprioriTID.View
 {
     /// <summary>
-    /// Interaction logic for Process.xaml
+    /// Interaction logic for FIView.xaml
     /// </summary>
-    public partial class Process : MetroWindow
+    public partial class FIView : Page
     {
-        public Process()
+        public FIView()
         {
             InitializeComponent();
         }
 
-        private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
+        private void FI_dataGrid_Loaded(object sender, RoutedEventArgs e)
         {
-            this.MainView.Content = new ProcessSupportPage();
-            Constant.parentFrame = this.MainView;
+            TableSoure.setGridColumnWidth(this.FI_dataGrid);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            
+            this.FI_dataGrid.ItemsSource = TableSoure.L_SetDataTable(ProcessData.FinalFI).DefaultView;
         }
     }
 }

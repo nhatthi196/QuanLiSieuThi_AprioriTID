@@ -3,83 +3,12 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" Loaded="MetroWindow_Loaded">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="4*"></RowDefinition>
-            <RowDefinition Height="1*"></RowDefinition>
-            
-        </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
 
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0">
-                <Grid>
-                    <Border BorderBrush="Black" BorderThickness="5,1,5,1">
-                        <StackPanel>
-                            <TextBlock x:Name="tbF" FontSize="16" Padding="5" HorizontalAlignment="Center"><Bold>Tập F</Bold></TextBlock>
-                            <DockPanel LastChildFill="True">
-
-                                <DataGrid x:Name="F_SetdataGrid" DockPanel.Dock="Bottom" Margin="5,0,0,0" GridLinesVisibility="All">
-
-                                </DataGrid>
-                            </DockPanel>
-                        </StackPanel>
-                    </Border>
-                </Grid>
-            </Grid>
-            <Grid Grid.Column="1">
-                <Grid>
-                    <Border BorderBrush="Black" BorderThickness="0,1,5,1">
-                        <StackPanel>
-                            <TextBlock x:Name="tbL" FontSize="16" Padding="5" HorizontalAlignment="Center"><Bold>Tập L</Bold></TextBlock>
-                            <DockPanel LastChildFill="True">
-
-                                <DataGrid x:Name="L_SetdataGrid" DockPanel.Dock="Bottom" GridLinesVisibility="All" Margin="5,0,0,0">
-
-                                </DataGrid>
-                            </DockPanel>
-                        </StackPanel>
-                    </Border>
-                </Grid>
-            </Grid>
+        <Grid>
+            <Frame x:Name="MainView" Grid.ColumnSpan="2"/>
+         
         </Grid>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
-                <ColumnDefinition  Width="1*"></ColumnDefinition>
-                
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0">
-               
-                <Button x:Name="btnPre" Width="150" Height="50" Click="btnPre_Click">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="/Asset/next.png" Width="20" Height="20" VerticalAlignment="Center"/>
-                        <TextBlock VerticalAlignment="Center" FontSize="14">PREVIOUS</TextBlock>
-                        
-                    </StackPanel>
-                </Button>
-            </Grid>
-            <Grid Grid.Column="1">
-                <Button x:Name="btnNext" Width="150" Height="50" Click="btnNext_Click">
-                    <StackPanel Orientation="Horizontal">
 
-                        <TextBlock VerticalAlignment="Center" FontSize="14">NEXT</TextBlock>
-                        <Image Source="/Asset/pre.png" Width="20" Height="20" VerticalAlignment="Center"/>
-
-                    </StackPanel>
-                </Button>
-                <Button x:Name="btnFinal" Width="150" Height="50" Click="btnFinal_Click" Background="#FF33C1FF">
-                    <StackPanel Orientation="Horizontal">
-
-                        <TextBlock VerticalAlignment="Center" Foreground="White" FontSize="14">FINAL</TextBlock>
-                        
-
-                    </StackPanel>
-                </Button>
-            </Grid>
-        </Grid>
     </Grid>
 </Controls:MetroWindow>
     

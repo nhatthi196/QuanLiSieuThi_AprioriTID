@@ -33,8 +33,9 @@ namespace AprioriTID.View
             btnRun.IsEnabled = false;
             //this.Product_dataGrid.ItemsSource = ProcessData.GetProducts();
             //this.Transaction_dataGrid.ItemsSource = ProcessData.GetTransactions();
-            
 
+           
+            TableSoure.setGridColumnWidth(I_dataGrid);
             //this.
         }
 
@@ -86,6 +87,19 @@ namespace AprioriTID.View
             ProcessData.Run();
             Process process = new Process();
             process.ShowDialog();
+        }
+
+        private void D_dataGrid_Loaded(object sender, RoutedEventArgs e)
+        {
+            TableSoure.setGridColumnWidth(this.D_dataGrid);
+        }
+
+        private void I_dataGrid_Loaded(object sender, RoutedEventArgs e)
+        {
+            foreach(var column in this.I_dataGrid.Columns)
+            {
+                column.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
+            }
         }
     }
 }

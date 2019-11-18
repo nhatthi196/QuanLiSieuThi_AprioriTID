@@ -27,7 +27,14 @@ namespace AprioriTID.View
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            
             this.FI_dataGrid.ItemsSource = TableSoure.L_SetDataTable(ProcessData.FinalFI).DefaultView;
+        }
+
+        private void FI_dataGrid_Loaded(object sender, RoutedEventArgs e)
+        {
+           
+            TableSoure.setGridColumnWidth(this.FI_dataGrid);
         }
     }
 }
