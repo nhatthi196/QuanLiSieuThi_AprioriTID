@@ -6,41 +6,41 @@ using System.Threading.Tasks;
 
 namespace AprioriTID.Model
 {
-    public class I
+    public class Item
     {
-        public string Item { get; set; }
+        public string Code { get; set; }
         public int Value { get; set; }
         public int Id { get; set; }
-        public I(string item)
+        public Item(string item)
         {
-            this.Item = item;
+            this.Code = item;
         }
-        public I(string item, int value)
+        public Item(string item, int value)
         {
-            this.Item = item;
+            this.Code = item;
             this.Value = value;
         }
 
-        public I(string item, int value, int id)
+        public Item(string item, int value, int id)
         {
-            this.Item = item;
+            this.Code = item;
             this.Value = value;
             this.Id = id;
         }
-        public I(I item)
+        public Item(Item item)
         {
             this.Id = item.Id;
-            this.Item = item.Item;
+            this.Code = item.Code;
             this.Value = item.Value;
         }
         public override int GetHashCode()
         {
-            return Item.GetHashCode();
+            return this.Id;
         }
 
         public override bool Equals(object obj)
         {
-            var other = obj as I;
+            var other = obj as Item;
             if (other == null) return false;
 
             return Id == other.Id;

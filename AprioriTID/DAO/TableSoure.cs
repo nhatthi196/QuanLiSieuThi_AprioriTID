@@ -12,14 +12,14 @@ namespace AprioriTID.DAO
 {
   public static class TableSoure
     {
-        public static DataTable D_SetDataTable(Dictionary<string, List<I>> data, HashSet<I> column)
+        public static DataTable D_SetDataTable(Dictionary<string, List<Item>> data, HashSet<Item> column)
         {
             DataTable table = new DataTable();
             //Add column
             table.Columns.Add("TID",typeof(string));
             foreach(var item in column)
             {
-                table.Columns.Add(item.Item,typeof(int));
+                table.Columns.Add(item.Code,typeof(int));
             }
 
             //Add row
@@ -37,7 +37,7 @@ namespace AprioriTID.DAO
             return table;
         }
 
-        public static DataTable ItemSetDataTable(HashSet<I> data)
+        public static DataTable ItemSetDataTable(HashSet<Item> data)
         {
             DataTable table = new DataTable();
             table.Columns.Add("Mã mặt hàng", typeof(string));
@@ -46,14 +46,14 @@ namespace AprioriTID.DAO
             foreach(var item in data)
             {
                 DataRow row = table.NewRow();
-                row[0] = item.Item;
+                row[0] = item.Code;
                 row[1] = item.Id;
                 table.Rows.Add(row);      
             }
             return table;
         }
 
-        public static DataTable F_SetDataTable(Dictionary<string, List<List<I>>> data)
+        public static DataTable F_SetDataTable(Dictionary<string, List<List<Item>>> data)
         {
             DataTable table = new DataTable();
             table.Columns.Add("TID",typeof(string));
@@ -68,7 +68,7 @@ namespace AprioriTID.DAO
             return table;
         }
 
-        public static DataTable L_SetDataTable(Dictionary<List<I>, int> data)
+        public static DataTable L_SetDataTable(Dictionary<List<Item>, int> data)
         {
             DataTable table = new DataTable();
             table.Columns.Add("Item set", typeof(string));

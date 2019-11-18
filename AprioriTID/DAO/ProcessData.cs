@@ -10,9 +10,9 @@ namespace AprioriTID.DAO
 {
    public static class ProcessData
     {
-        public static Dictionary<string, List<I>> D_Set;
-        public static Dictionary<List<I>, int> FinalFI;
-        public static HashSet<I> ItemSet = new HashSet<I>();
+        public static Dictionary<string, List<Item>> D_Set;
+        public static Dictionary<List<Item>, int> FinalFI;
+        public static HashSet<Item> ItemSet = new HashSet<Item>();
         public static List<Step> steps;
         public static int MinSup;
         public static int TotalTransaction = 0;
@@ -26,23 +26,12 @@ namespace AprioriTID.DAO
                 file.WriteLine(s);
             }
         }
-        public static string Print(I[] a)
+       
+        public static List<List<Item>> SubSets(List<Item> subset, int n)
         {
-            string s = "";
-            for (int i = 0; i < a.Length; i++)
-            {
-                if (a[i] != null)
-                {
-                    s += a[i].Item + " ";
-                }
-            }
-            return s;
-        }
-        public static List<List<I>> SubSets(List<I> subset, int n)
-        {
-            List<List<I>> result = new List<List<I>>();
+            List<List<Item>> result = new List<List<Item>>();
             int[] b = new int[100];
-            I[] a = new I[n];
+            Item[] a = new Item[n];
             for (int i = 0; i < subset.Count; i++)
             {
                 b[subset[i].Id] = 1;
@@ -50,9 +39,9 @@ namespace AprioriTID.DAO
             backtrack(1, b, subset, n, result, a);
             return result;
         }
-        public static List<List<I>> Intersect(List<List<I>> a, List<List<I>> b)
+        public static List<List<Item>> Intersect(List<List<Item>> a, List<List<Item>> b)
         {
-            List<List<I>> interset = new List<List<I>>();
+            List<List<Item>> interset = new List<List<Item>>();
             foreach (var item1 in a)
             {
                 foreach (var item2 in b)
@@ -67,10 +56,10 @@ namespace AprioriTID.DAO
             return interset;
         }
 
-        public static void backtrack(int k, int[] b, List<I> set, int n, List<List<I>> subsets, I[] a)
+        public static void backtrack(int k, int[] b, List<Item> set, int n, List<List<Item>> subsets, Item[] a)
         { // hàm quay lui
 
-            List<I> subsetTmp;
+            List<Item> subsetTmp;
             int max = set.Max(x => x.Id);
             for (int j = 1; j <= max; j++)
             {
@@ -80,7 +69,7 @@ namespace AprioriTID.DAO
                     b[j] = 0;
                     if (k == n)
                     {
-                        subsetTmp = new List<I>(a);
+                        subsetTmp = new List<Item>(a);
                         if (IsContain(subsets, subsetTmp) == false)
                         {
 
@@ -103,20 +92,20 @@ namespace AprioriTID.DAO
             string sql = string.Format("exec [dbo].[SP_GIAOTAC] {0}", minSup);
             command = new SqlCommand(sql, Connection.conn);
             reader = command.ExecuteReader();
-            D_Set = new Dictionary<string, List<I>>();
-            ItemSet = new HashSet<I>();
+            D_Set = new Dictionary<string, List<Item>>();
+            ItemSet = new HashSet<Item>();
             MinSup = 0;
             TotalTransaction = 0;
             while (reader.Read())
             {
                 TotalTransaction++;
-                List<I> set = new List<I>();
+                List<Item> set = new List<Item>();
 
                 for (int i = 0; i < reader.FieldCount - 1; i++)
                 {
                     
                         int id = ItemCovnert.ConvertToId(reader.GetName(i + 1));
-                        I item = new I(reader.GetName(i + 1), Int32.Parse(reader[i + 1].ToString()), id);
+                        Item item = new Item(reader.GetName(i + 1), Int32.Parse(reader[i + 1].ToString()), id);
                         set.Add(item);
                         ItemSet.Add(item);
                     
@@ -128,9 +117,9 @@ namespace AprioriTID.DAO
             reader.Close();
         }
 
-        public static Dictionary<List<I>, int> apriori_gen(Dictionary<List<I>, int> l, int k)
+        public static Dictionary<List<Item>, int> apriori_gen(Dictionary<List<Item>, int> l, int k)
         {
-            Dictionary<List<I>, int> c = new Dictionary<List<I>, int>();
+            Dictionary<List<Item>, int> c = new Dictionary<List<Item>, int>();
             if (k <= 2)
             {
                 foreach (var item1 in l.Keys)
@@ -174,7 +163,7 @@ namespace AprioriTID.DAO
             return c;
         }
 
-        private static bool IsSubSetOfL(List<List<I>> set, Dictionary<List<I>, int> L_Set)
+        private static bool IsSubSetOfL(List<List<Item>> set, Dictionary<List<Item>, int> L_Set)
         {
             bool check = false;
             if (set.Count <= L_Set.Keys.Count)
@@ -188,19 +177,19 @@ namespace AprioriTID.DAO
             return check;
         }
 
-        public static Dictionary<string, List<List<I>>> Generate_F1(Dictionary<string, List <I>> D_Set)
+        public static Dictionary<string, List<List<Item>>> Generate_F1(Dictionary<string, List <Item>> D_Set)
         {
-            Dictionary<string, List<List<I>>> f1 = new Dictionary<string, List<List<I>>>();
+            Dictionary<string, List<List<Item>>> f1 = new Dictionary<string, List<List<Item>>>();
             for (int i = 0; i < D_Set.Count; i++)
             {
                 string key = D_Set.ElementAt(i).Key;
-                List<List<I>> items = new List<List<I>>();
+                List<List<Item>> items = new List<List<Item>>();
                 foreach (var item in D_Set.ElementAt(i).Value)
                 {
                     if (item.Value==1)
                     {
-                        List<I> set = new List<I>();
-                        set.Add(new I(item));
+                        List<Item> set = new List<Item>();
+                        set.Add(new Item(item));
                         items.Add(set);
                     }
                 }
@@ -210,7 +199,7 @@ namespace AprioriTID.DAO
 
             return f1;
         }
-        public static bool CompareItemset(List<I> itemset1, List<I> itemset2)
+        public static bool CompareItemset(List<Item> itemset1, List<Item> itemset2)
         {
             bool check = true;
             if (itemset1.Count == itemset2.Count)
@@ -223,7 +212,7 @@ namespace AprioriTID.DAO
                 check = false;
             return check;
         }
-        public static bool IsContainKey(Dictionary<List<I>, int> c, List<I> key)
+        public static bool IsContainKey(Dictionary<List<Item>, int> c, List<Item> key)
         {
             bool check = false;
             foreach (var item in c.Keys)
@@ -236,7 +225,7 @@ namespace AprioriTID.DAO
             }
             return check;
         }
-        public static bool IsContain(List<List<I>> c, List<I> key)
+        public static bool IsContain(List<List<Item>> c, List<Item> key)
         {
             bool check = false;
             foreach (var item in c)
@@ -249,10 +238,10 @@ namespace AprioriTID.DAO
             }
             return check;
         }
-        public static Dictionary<List<I>, int> Generate_L1(Dictionary<string, List<List<I>>> F1)
+        public static Dictionary<List<Item>, int> Generate_L1(Dictionary<string, List<List<Item>>> F1)
         {
-            Dictionary<List<I>, int> l1 = new Dictionary<List<I>, int>();
-            Dictionary<List<I>, int> c1 = new Dictionary<List<I>, int>();
+            Dictionary<List<Item>, int> l1 = new Dictionary<List<Item>, int>();
+            Dictionary<List<Item>, int> c1 = new Dictionary<List<Item>, int>();
             foreach (var f1 in F1)
             {
                 foreach (var set in f1.Value)
@@ -288,28 +277,28 @@ namespace AprioriTID.DAO
             
            
 
-            Dictionary<string, List<List<I>>> F1 = Generate_F1(D_Set);
-            Dictionary<List<I>, int> L1 = Generate_L1(F1);
+            Dictionary<string, List<List<Item>>> F1 = Generate_F1(D_Set);
+            Dictionary<List<Item>, int> L1 = Generate_L1(F1);
             steps = new List<Step>();
             steps.Add(new Step(F1, L1));
         }
 
         public static void Generate()
         {
-            Dictionary<List<I>, int> C_Set;
-            Dictionary<string, List<List<I>>> F_Set;
-            Dictionary<List<I>, int> L_Set;
+            Dictionary<List<Item>, int> C_Set;
+            Dictionary<string, List<List<Item>>> F_Set;
+            Dictionary<List<Item>, int> L_Set;
             int k = 2;
             while (true)
             {
 
-                F_Set = new Dictionary<string, List<List<I>>>();
-                L_Set = new Dictionary<List<I>, int>();
+                F_Set = new Dictionary<string, List<List<Item>>>();
+                L_Set = new Dictionary<List<Item>, int>();
                 C_Set = apriori_gen(steps[k - 2].L_Set, k);
 
                 foreach (var transaction in steps[k - 2].F_Set)
                 {
-                    var c = new List<List<I>>();
+                    var c = new List<List<Item>>();
                     for (var item1 = 0; item1 < transaction.Value.ToList().Count; item1++)
                     {
                         for (var item2 = item1; item2 < transaction.Value.ToList().Count; item2++)
@@ -352,7 +341,7 @@ namespace AprioriTID.DAO
                 k++;
             }
 
-            FinalFI = new Dictionary<List<I>, int>();
+            FinalFI = new Dictionary<List<Item>, int>();
             foreach(var step in steps)
             {
                 foreach(var item in step.L_Set)

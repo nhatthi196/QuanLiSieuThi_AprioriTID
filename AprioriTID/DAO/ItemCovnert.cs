@@ -9,7 +9,7 @@ namespace AprioriTID.DAO
 {
     public static class ItemCovnert 
     {
-        public static string Display(List<List<I>> itemset)
+        public static string Display(List<List<Item>> itemset)
         {
             string s = "";
             foreach(var item in itemset)
@@ -20,7 +20,7 @@ namespace AprioriTID.DAO
            
             return s;
         }
-        public static string DisplayItem(List<I> item)
+        public static string DisplayItem(List<Item> item)
         {
             string s = "";
             s += "{ ";

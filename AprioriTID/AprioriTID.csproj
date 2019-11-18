@@ -126,7 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\ErrorMessage.cs" />
-    <Compile Include="Model\I.cs" />
+    <Compile Include="Model\Item.cs" />
     <Compile Include="Model\Product.cs" />
     <Compile Include="Model\Step.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
