@@ -87,16 +87,9 @@
     </Compile>
     <Compile Include="View\Product.cs" />
     <Compile Include="DAO\TableSoure.cs" />
-    <Compile Include="View\FinalFI.xaml.cs">
-      <DependentUpon>FinalFI.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\Process.xaml.cs">
       <DependentUpon>Process.xaml</DependentUpon>
     </Compile>
-    <Page Include="View\FinalFI.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\FIView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -38,6 +38,7 @@ namespace AprioriTID.View
             if(isConnect.State)
             {
                 Constant.curentUser = txtUsername.Text;
+                Constant.parentWindown = this;
                 Home home = new Home();
                 home.Show();
                 this.Hide();
@@ -50,12 +51,22 @@ namespace AprioriTID.View
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
-
+            
         }
 
         private void MetroWindow_AccessKeyPressed(object sender, AccessKeyPressedEventArgs e)
         {
 
+        }
+
+        private void MetroWindow_LostFocus(object sender, RoutedEventArgs e)
+        {
+           
+        }
+
+        private void MetroWindow_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            this.txtPassword.Clear();
         }
     }
 }

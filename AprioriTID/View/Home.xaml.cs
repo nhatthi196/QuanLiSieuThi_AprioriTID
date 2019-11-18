@@ -27,6 +27,7 @@ namespace AprioriTID.View
             InitializeComponent();
         }
 
+       
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
             currentUser.Content = Constant.curentUser;
@@ -100,6 +101,17 @@ namespace AprioriTID.View
             {
                 column.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
             }
+        }
+
+        private void MetroWindow_Closed(object sender, EventArgs e)
+        {
+            Constant.parentWindown.Show();
+            
+        }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -5,7 +5,7 @@
                       Title="Login"
                       Height="400"
                       Width="350"
-                      ResizeMode="NoResize" Loaded="MetroWindow_Loaded" WindowStartupLocation="CenterScreen" WindowStyle="ThreeDBorderWindow"
+                      ResizeMode="NoResize" Loaded="MetroWindow_Loaded" WindowStartupLocation="CenterScreen" WindowStyle="ThreeDBorderWindow" LostFocus="MetroWindow_LostFocus" IsVisibleChanged="MetroWindow_IsVisibleChanged"
                       >
 
     <Grid Margin="0,0,37,7">

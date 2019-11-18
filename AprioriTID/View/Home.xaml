@@ -4,11 +4,12 @@
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                        GlowBrush="{DynamicResource AccentColorBrush}"
                       WindowStartupLocation="CenterScreen"
-                      Title="Trang chủ" Loaded="MetroWindow_Loaded">
+                      Title="Trang chủ" Loaded="MetroWindow_Loaded" Closed="MetroWindow_Closed"
+                     >
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
             <Button x:Name="currentUser" Content="user name" />
-            <Button>
+            <Button x:Name="btnLogout" Click="btnLogout_Click">
                 <StackPanel Orientation="Horizontal">
 
                     <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Đăng xuất" />

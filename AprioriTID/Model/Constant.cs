@@ -13,6 +13,7 @@ namespace AprioriTID.DAO
         public static string curentUser = "";
         public static int currentStep = 0;
         public static Frame parentFrame = null;
+        public static Window parentWindown = null;
 
     }
 }
