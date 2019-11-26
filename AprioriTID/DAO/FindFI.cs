@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AprioriTID.DAO
 {
-   public static class ProcessData
+   public static class FindFI
     {
         public static Dictionary<string, List<Item>> D_Set;
         public static Dictionary<List<Item>, int> FinalFI;
@@ -86,12 +86,13 @@ namespace AprioriTID.DAO
 
         public static void GetData(int minSup)
         {
+            
 
             SqlCommand command;
             SqlDataReader reader;
             string sql = string.Format("exec [dbo].[SP_GIAOTAC] {0}", minSup);
             command = new SqlCommand(sql, Connection.conn);
-            reader = command.ExecuteReader();
+            reader  =  command.ExecuteReader();
             D_Set = new Dictionary<string, List<Item>>();
             ItemSet = new HashSet<Item>();
             MinSup = 0;
@@ -104,7 +105,7 @@ namespace AprioriTID.DAO
                 for (int i = 0; i < reader.FieldCount - 1; i++)
                 {
                     
-                        int id = ItemCovnert.ConvertToId(reader.GetName(i + 1));
+                        int id = ItemUtil.ConvertToId(reader.GetName(i + 1));
                         Item item = new Item(reader.GetName(i + 1), Int32.Parse(reader[i + 1].ToString()), id);
                         set.Add(item);
                         ItemSet.Add(item);
@@ -115,6 +116,8 @@ namespace AprioriTID.DAO
             MinSup = (minSup * TotalTransaction) / 100;
             //ConnectionObj.CloseConnection();
             reader.Close();
+           
+           
         }
 
         public static Dictionary<List<Item>, int> apriori_gen(Dictionary<List<Item>, int> l, int k)

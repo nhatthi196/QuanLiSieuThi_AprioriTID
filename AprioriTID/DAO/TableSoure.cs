@@ -57,12 +57,12 @@ namespace AprioriTID.DAO
         {
             DataTable table = new DataTable();
             table.Columns.Add("TID",typeof(string));
-            table.Columns.Add("Item set", typeof(string));
+            table.Columns.Add("Tập mục", typeof(string));
             foreach(var item in data)
             {
                 DataRow row = table.NewRow();
                 row[0] = item.Key;
-                row[1] = ItemCovnert.Display(item.Value);
+                row[1] = ItemUtil.Display(item.Value);
                 table.Rows.Add(row);
             }
             return table;
@@ -71,13 +71,13 @@ namespace AprioriTID.DAO
         public static DataTable L_SetDataTable(Dictionary<List<Item>, int> data)
         {
             DataTable table = new DataTable();
-            table.Columns.Add("Item set", typeof(string));
-            table.Columns.Add("Support(%)", typeof(double));
+            table.Columns.Add("Tập thường xuyên", typeof(string));
+            table.Columns.Add("Độ phổ biến(%)", typeof(double));
             foreach(var item in data)
             {
                 DataRow row = table.NewRow();
-                double supp = item.Value*100 / ProcessData.TotalTransaction;
-                row[0] = ItemCovnert.DisplayItem(item.Key);
+                double supp = item.Value*100 / FindFI.TotalTransaction;
+                row[0] = ItemUtil.DisplayItem(item.Key);
                 row[1] = supp;
                 table.Rows.Add(row);
             }
@@ -91,6 +91,22 @@ namespace AprioriTID.DAO
                 column.MinWidth = column.ActualWidth;
                 column.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
             }
+        }
+
+        public static DataTable LawDataTable(List<Law> data)
+        {
+            DataTable table = new DataTable();
+            table.Columns.Add("Luật", typeof(string));
+            table.Columns.Add("Độ tin cậy(%)", typeof(double));
+            foreach (var item in data)
+            {
+                DataRow row = table.NewRow();
+
+                row[0] = item.ToString();
+                row[1] = item.Conf;
+                table.Rows.Add(row);
+            }
+            return table;
         }
     }
 }

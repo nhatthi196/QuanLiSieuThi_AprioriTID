@@ -75,17 +75,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DAO\InsertDataTool.cs" />
-    <Compile Include="DAO\ItemCovnert.cs" />
-    <Compile Include="Model\ItemSet.cs" />
+    <Compile Include="DAO\FindLaw.cs" />
+    <Compile Include="DAO\ItemUtil.cs" />
+    <Compile Include="Model\Law.cs" />
+    <Compile Include="Model\LawsByItemSet.cs" />
     <Compile Include="Model\Transaction.cs" />
     <Compile Include="View\FIView.xaml.cs">
       <DependentUpon>FIView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\LawViewPage.xaml.cs">
+      <DependentUpon>LawViewPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ProcessSupportPage.xaml.cs">
       <DependentUpon>ProcessSupportPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Product.cs" />
     <Compile Include="DAO\TableSoure.cs" />
     <Compile Include="View\Process.xaml.cs">
       <DependentUpon>Process.xaml</DependentUpon>
@@ -95,6 +98,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Home.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LawViewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -108,7 +115,7 @@
     </Compile>
     <Compile Include="DAO\Connection.cs" />
     <Compile Include="Model\Constant.cs" />
-    <Compile Include="DAO\ProcessData.cs" />
+    <Compile Include="DAO\FindFI.cs" />
     <Compile Include="View\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>

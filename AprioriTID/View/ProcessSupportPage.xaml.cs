@@ -46,21 +46,21 @@ namespace AprioriTID.View
         {
             this.tbF.Text = "TẬP F" + (step + 1).ToString();
             this.tbL.Text = "TẬP L" + (step + 1).ToString();
-            this.F_SetdataGrid.ItemsSource = TableSoure.F_SetDataTable(ProcessData.steps[step].F_Set).DefaultView;
-            this.L_SetdataGrid.ItemsSource = TableSoure.L_SetDataTable(ProcessData.steps[step].L_Set).DefaultView;
+            this.F_SetdataGrid.ItemsSource = TableSoure.F_SetDataTable(FindFI.steps[step].F_Set).DefaultView;
+            this.L_SetdataGrid.ItemsSource = TableSoure.L_SetDataTable(FindFI.steps[step].L_Set).DefaultView;
         }
 
         private void btnNext_Click(object sender, RoutedEventArgs e)
         {
             this.btnPre.IsEnabled = true;
             Constant.currentStep++;
-            if (Constant.currentStep >= ProcessData.steps.Count - 1)
+            if (Constant.currentStep >= FindFI.steps.Count - 1)
             {
                 this.btnNext.IsEnabled = false;
                 this.btnFinal.Visibility = Visibility.Visible;
                 this.btnNext.Visibility = Visibility.Hidden;
             }
-            if (Constant.currentStep <= ProcessData.steps.Count - 1)
+            if (Constant.currentStep <= FindFI.steps.Count - 1)
             {
                 StepView(Constant.currentStep);
             }

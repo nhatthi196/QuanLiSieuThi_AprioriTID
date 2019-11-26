@@ -33,7 +33,12 @@ namespace AprioriTID.View
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            this.FI_dataGrid.ItemsSource = TableSoure.L_SetDataTable(ProcessData.FinalFI).DefaultView;
+            this.FI_dataGrid.ItemsSource = TableSoure.L_SetDataTable(FindFI.FinalFI).DefaultView;
+        }
+
+        private void btnfindlaw_Click(object sender, RoutedEventArgs e)
+        {
+            Constant.parentFrame.Content = new LawView();
         }
     }
 }

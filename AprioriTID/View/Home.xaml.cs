@@ -69,23 +69,32 @@ namespace AprioriTID.View
 
         }
 
-        private void findbtn_Click(object sender, RoutedEventArgs e)
+        private async void findbtn_Click(object sender, RoutedEventArgs e)
         {
             if (String.IsNullOrEmpty(txtVal.Text)==false)
             {
-                btnRun.IsEnabled = true;
                 int minsup = Int32.Parse(txtVal.Text);
-                ProcessData.GetData(minsup);
+                await process(minsup);
+                btnRun.IsEnabled = true;
                 //this.D_dataGrid.Columns.Clear();
-                this.D_dataGrid.DataContext = null;
-                this.D_dataGrid.ItemsSource = TableSoure.D_SetDataTable(ProcessData.D_Set, ProcessData.ItemSet).DefaultView;
-                this.I_dataGrid.ItemsSource = TableSoure.ItemSetDataTable(ProcessData.ItemSet).DefaultView;
+                
+                this.D_dataGrid.ItemsSource = TableSoure.D_SetDataTable(FindFI.D_Set, FindFI.ItemSet).DefaultView;
+                this.I_dataGrid.ItemsSource = TableSoure.ItemSetDataTable(FindFI.ItemSet).DefaultView;
             }
         }
 
+      public static Task process(int min)
+        {
+            return Task.Factory.StartNew(()=>
+            {
+                FindFI.GetData(min);
+                Constant.D_SetDataTable = TableSoure.D_SetDataTable(FindFI.D_Set, FindFI.ItemSet);
+            }   
+            );
+        }
         private void btnRun_Click(object sender, RoutedEventArgs e)
         {
-            ProcessData.Run();
+            FindFI.Run();
             Process process = new Process();
             process.ShowDialog();
         }
@@ -109,9 +118,15 @@ namespace AprioriTID.View
             
         }
 
-        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        private async void btnLogout_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            var result = await this.ShowMessageAsync("Thông báo","Bạn muốn đăng xuất?",MessageDialogStyle.AffirmativeAndNegative).ConfigureAwait(true);
+            if(result == MessageDialogResult.Affirmative)
+            {
+                this.Close();
+            }
+            
+            
         }
     }
 }

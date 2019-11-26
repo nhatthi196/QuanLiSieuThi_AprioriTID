@@ -37,7 +37,7 @@
                                     <StackPanel>
                                         <TextBlock FontSize="16" TextAlignment="Center" Padding="5"><Bold>DANH SÁCH GIAO TÁC THỎA MIN SUPPORT (TẬP D)</Bold></TextBlock>
                                         <DockPanel LastChildFill="True">
-                                            <DataGrid x:Name="D_dataGrid" DockPanel.Dock="Top" Padding="0,0,5,0" IsReadOnly="True" GridLinesVisibility="Vertical" Loaded="D_dataGrid_Loaded">
+                                            <DataGrid x:Name="D_dataGrid" DockPanel.Dock="Top" Padding="0,0,5,0" IsReadOnly="True" GridLinesVisibility="All" Loaded="D_dataGrid_Loaded">
 
                                             </DataGrid>
                                         </DockPanel>
