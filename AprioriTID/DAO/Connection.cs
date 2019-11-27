@@ -12,9 +12,9 @@ namespace AprioriTID.DAO
         public static SqlConnection conn;
        
 
-        public static ErrorMessage ConnectToDatabase(string serverName, string databaseName, string username, string password)
+        public static ConnectionMessage ConnectToDatabase(string serverName, string databaseName, string username, string password)
         {
-            ErrorMessage error = new ErrorMessage();
+            ConnectionMessage error = new ConnectionMessage();
           
             string connectionString = serverName + "initial catalog=" + databaseName + ";User Id=" + username + ";Password=" + password + ";";
             try

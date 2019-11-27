@@ -22,7 +22,11 @@
 
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
-                    <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
                         <Border BorderBrush="Black" BorderThickness="5,1,5,1">
                             <ScrollViewer VerticalScrollBarVisibility="Auto">
                                 <StackPanel>
@@ -36,6 +40,32 @@
                                 </StackPanel>
                             </ScrollViewer>
                         </Border>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button x:Name="btnBeginPage" Width="50" Height="30" Click="btnBeginPage_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="9">Start</TextBlock>
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="btnEndPage" Width="50" Height="30" Margin="5,0,0,0" Click="btnEndPage_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="9">End</TextBlock>
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="btnPrePage" Width="50" Height="30" Margin="20,0,0,0" Click="btnPrePage_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="9">Previous</TextBlock>
+                                </StackPanel>
+                            </Button>
+                            <Button Name="btnNextPage" Width="50" Height="30" Margin="5,0,10,0" Click="btnNextPage_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="9">Mext</TextBlock>
+                                </StackPanel>
+                            </Button>
+                            <TextBlock x:Name="txtPageCount" VerticalAlignment="Center" FontSize="11" Margin="10">0 of 0</TextBlock>
+
+                        </StackPanel>
                     </Grid>
                 </Grid>
                 <Grid Grid.Column="1">

@@ -29,7 +29,7 @@
                                     <TextBlock x:Name="tbF" FontSize="16" Padding="5" HorizontalAlignment="Center"><Bold>Tập Item set thường xuên</Bold></TextBlock>
                                     <DockPanel LastChildFill="True">
 
-                                        <DataGrid x:Name="ItemSetdataGrid" DockPanel.Dock="Bottom" Margin="5,0,0,0" GridLinesVisibility="All" SelectionChanged="ItemSetdataGrid_SelectionChanged">
+                                        <DataGrid x:Name="ItemSetdataGrid" DockPanel.Dock="Bottom" Margin="5,0,0,0" GridLinesVisibility="All" SelectionChanged="ItemSetdataGrid_SelectionChanged" SelectionMode="Single" ForceCursor="True" IsReadOnly="True">
 
                                         </DataGrid>
                                     </DockPanel>

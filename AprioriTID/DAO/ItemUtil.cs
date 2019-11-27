@@ -145,5 +145,7 @@ namespace AprioriTID.DAO
         {
             return FindFI.ItemSet.ToList().Find(x=>x.Id==_id);
         }
+
+       
     }
 }

@@ -32,19 +32,53 @@
                             <ColumnDefinition Width="1*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="0">
-                            <Border BorderBrush="Black" BorderThickness="0,1,5,1">
-                                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                    <StackPanel>
-                                        <TextBlock FontSize="16" TextAlignment="Center" Padding="5"><Bold>DANH SÁCH GIAO TÁC THỎA MIN SUPPORT (TẬP D)</Bold></TextBlock>
-                                        <DockPanel LastChildFill="True">
-                                            <DataGrid x:Name="D_dataGrid" DockPanel.Dock="Top" Padding="0,0,5,0" IsReadOnly="True" GridLinesVisibility="All" Loaded="D_dataGrid_Loaded">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="10*"></RowDefinition>
+                                    <RowDefinition Height="1*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <Border BorderBrush="Black" BorderThickness="0,1,5,1">
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                        <StackPanel>
+                                            <TextBlock FontSize="16" TextAlignment="Center" Padding="5"><Bold>DANH SÁCH GIAO TÁC THỎA MIN SUPPORT (TẬP D)</Bold></TextBlock>
+                                            <DockPanel LastChildFill="True">
+                                                <DataGrid x:Name="D_dataGrid" DockPanel.Dock="Top" Padding="0,0,5,0" IsReadOnly="True" GridLinesVisibility="All" Loaded="D_dataGrid_Loaded">
 
-                                            </DataGrid>
-                                        </DockPanel>
+                                                </DataGrid>
+                                            </DockPanel>
+                                        </StackPanel>
+                                    </ScrollViewer>
+                                    </Border>
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <Button x:Name="btnBeginPage" Width="50" Height="30" Click="btnBeginPage_Click">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock FontSize="9">Start</TextBlock>
+                                            </StackPanel>
+                                        </Button>
+                                        <Button x:Name="btnEndPage" Width="50" Height="30" Margin="5,0,0,0" Click="btnEndPage_Click">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock FontSize="9">End</TextBlock>
+                                            </StackPanel>
+                                        </Button>
+                                        <Button x:Name="btnPrePage" Width="50" Height="30" Margin="20,0,0,0" Click="btnPrePage_Click">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock FontSize="9">Previous</TextBlock>
+                                            </StackPanel>
+                                        </Button>
+                                        <Button Name="btnNextPage" Width="50" Height="30" Margin="5,0,10,0" Click="btnNextPage_Click">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock FontSize="9">Mext</TextBlock>
+                                            </StackPanel>
+                                        </Button>
+                                        <TextBlock x:Name="txtPageCount" VerticalAlignment="Center" FontSize="11" Margin="10">0 of 0</TextBlock>
+
                                     </StackPanel>
-                                </ScrollViewer>
-                            </Border>
-                        </Grid>
+                                </Grid>
+                            </Grid>
+                    </Grid>
                         <Grid Grid.Column="1">
                             <Border BorderBrush="Black" BorderThickness="0,1,0,1">
                                 <StackPanel >
@@ -80,12 +114,19 @@
                         </Grid>
 
                         <Grid Grid.Column="1">
-                            <Button x:Name="btnRun" Width="100" Height="75" FontSize="18" HorizontalAlignment="Center" Click="btnRun_Click">
+                            <Button x:Name="btnFinding" Width="125" Height="75" FontSize="18" HorizontalAlignment="Center" Click="btnRun_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="/Asset/run.png" Width="25" Height="25" VerticalAlignment="Center"/>
+                                    <TextBlock><Bold>Running...</Bold></TextBlock>
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="btnRun" Width="125" Height="75" FontSize="18" HorizontalAlignment="Center" Click="btnRun_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <Image Source="/Asset/run.png" Width="25" Height="25" VerticalAlignment="Center"/>
                                     <TextBlock><Bold>Run</Bold></TextBlock>
                                 </StackPanel>
                             </Button>
+                            
                         </Grid>
                     </Grid>
                 </Grid>

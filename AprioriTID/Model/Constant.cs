@@ -15,10 +15,9 @@ namespace AprioriTID.DAO
         public static int currentStep = 0;
         public static Frame parentFrame = null;
         public static Window parentWindown = null;
-        public static DataTable D_SetDataTable = null;
-        public static DataTable I_SetDataTable = null;
-        public static DataTable F_SetDataTable = null;
-        public static DataTable L_SetDataTable = null;
+        public static List<DataTable> DSetDataTable = new List<DataTable>();
         public static bool HaveLaw = false;
+        public static int pageRange = 50;
+        public static int PageSize = 0;
     }
 }

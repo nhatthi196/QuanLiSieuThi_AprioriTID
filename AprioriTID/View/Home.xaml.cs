@@ -22,6 +22,7 @@ namespace AprioriTID.View
     /// </summary>
     public partial class Home : MetroWindow
     {
+        public int _currentPage = 0;
         public Home()
         {
             InitializeComponent();
@@ -31,10 +32,12 @@ namespace AprioriTID.View
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
             currentUser.Content = Constant.curentUser;
+            this.findbtn.IsEnabled = false;
             btnRun.IsEnabled = false;
             //this.Product_dataGrid.ItemsSource = ProcessData.GetProducts();
             //this.Transaction_dataGrid.ItemsSource = ProcessData.GetTransactions();
-
+            this.btnFinding.IsEnabled = false;
+            this.btnFinding.Visibility = Visibility.Hidden;
            
             TableSoure.setGridColumnWidth(I_dataGrid);
             //this.
@@ -57,7 +60,9 @@ namespace AprioriTID.View
                 btnRun.IsEnabled = false;
                 if (String.IsNullOrEmpty(txtVal.Text) == false)
                 {
+
                     slide.Value = Double.Parse(txtVal.Text);
+                    this.findbtn.IsEnabled = true;
                 }
             }
             catch (FormatException ex)
@@ -71,32 +76,63 @@ namespace AprioriTID.View
 
         private async void findbtn_Click(object sender, RoutedEventArgs e)
         {
+            this.findbtn.IsEnabled = false;
+            this._currentPage = 0;
             if (String.IsNullOrEmpty(txtVal.Text)==false)
             {
                 int minsup = Int32.Parse(txtVal.Text);
-                await process(minsup);
+                Task<bool> task = processD(minsup);
+                bool result = await task;
+                
                 btnRun.IsEnabled = true;
                 //this.D_dataGrid.Columns.Clear();
-                
-                this.D_dataGrid.ItemsSource = TableSoure.D_SetDataTable(FindFI.D_Set, FindFI.ItemSet).DefaultView;
+                if (Constant.PageSize <= 0)
+                {
+                    this.txtPageCount.Text = "1 of 1";
+                    this.D_dataGrid.ItemsSource = TableSoure.D_SetDataTable(FindFI.D_Set, FindFI.ItemSet).DefaultView;
+                    this.btnBeginPage.IsEnabled = false;
+                    this.btnEndPage.IsEnabled = false;
+                    this.btnPrePage.IsEnabled = false;
+                    this.btnNextPage.IsEnabled = false;
+                }
+                else
+                {
+                    this.txtPageCount.Text = this._currentPage + 1 + " of " + Constant.PageSize;
+                    this.D_dataGrid.ItemsSource = TableSoure.D_SetDataTable(FindFI.D_Set, FindFI.ItemSet, _currentPage).DefaultView;
+                }
                 this.I_dataGrid.ItemsSource = TableSoure.ItemSetDataTable(FindFI.ItemSet).DefaultView;
+              
             }
         }
-
-      public static Task process(int min)
+         
+      public async Task<bool> processD(int min)
         {
-            return Task.Factory.StartNew(()=>
+         
+            return await Task.Factory.StartNew(()=>
             {
-                FindFI.GetData(min);
-                Constant.D_SetDataTable = TableSoure.D_SetDataTable(FindFI.D_Set, FindFI.ItemSet);
+                return FindFI.GetData(min);
+                
             }   
-            );
+            ).ConfigureAwait(true);
         }
-        private void btnRun_Click(object sender, RoutedEventArgs e)
+      public  async Task<int> processFI()
         {
-            FindFI.Run();
+            return await Task.Factory.StartNew(()=> {
+                return FindFI.Run();
+            }).ConfigureAwait(true);
+        }
+        private async void btnRun_Click(object sender, RoutedEventArgs e)
+        {
+            Task<int> task = processFI();
+            //var result1 = await this.ShowProgressAsync("Thông báo", "Đang tìm... Vui lòng chờ trong ít phút!").ConfigureAwait(true);
+            this.btnRun.Visibility = Visibility.Hidden;
+            this.btnFinding.Visibility = Visibility.Visible;
+            var run = await task.ConfigureAwait(true);
+            var result = await this.ShowMessageAsync("Thông báo", "Đã hoàn tất việc tìm tập item set thường xuyên!", MessageDialogStyle.Affirmative).ConfigureAwait(true);
             Process process = new Process();
             process.ShowDialog();
+            this.btnFinding.Visibility = Visibility.Hidden;
+            this.btnRun.Visibility = Visibility.Visible;
         }
 
         private void D_dataGrid_Loaded(object sender, RoutedEventArgs e)
@@ -127,6 +163,43 @@ namespace AprioriTID.View
             }
             
             
+        }
+
+        private void btnPrePage_Click(object sender, RoutedEventArgs e)
+        {
+            if(_currentPage>0)
+            {
+                _currentPage--;
+                this.D_dataGrid.ItemsSource = TableSoure.D_SetDataTable(FindFI.D_Set, FindFI.ItemSet, _currentPage).DefaultView;
+                
+                this.txtPageCount.Text = this._currentPage + 1 + " of " + Constant.PageSize;
+            }
+        }
+
+        private void btnNextPage_Click(object sender, RoutedEventArgs e)
+        {
+            if (_currentPage<Constant.PageSize)
+            {
+                _currentPage++;
+
+                this.D_dataGrid.ItemsSource = TableSoure.D_SetDataTable(FindFI.D_Set, FindFI.ItemSet, _currentPage).DefaultView;
+
+                this.txtPageCount.Text = this._currentPage + 1 + " of " + Constant.PageSize;
+            }
+        }
+
+        private void btnBeginPage_Click(object sender, RoutedEventArgs e)
+        {
+            this._currentPage=0;
+            this.D_dataGrid.ItemsSource = TableSoure.D_SetDataTable(FindFI.D_Set, FindFI.ItemSet, 0).DefaultView;
+            this.txtPageCount.Text = 1 + " of " + Constant.PageSize;
+        }
+
+        private void btnEndPage_Click(object sender, RoutedEventArgs e)
+        {
+            this._currentPage = Constant.PageSize;
+            this.D_dataGrid.ItemsSource = TableSoure.D_SetDataTable(FindFI.D_Set, FindFI.ItemSet, Constant.PageSize - 1).DefaultView;
+            this.txtPageCount.Text = Constant.PageSize + " of " + Constant.PageSize;
         }
     }
 }

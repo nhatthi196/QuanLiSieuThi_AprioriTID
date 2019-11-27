@@ -12,8 +12,9 @@ namespace AprioriTID.DAO
 {
   public static class TableSoure
     {
-        public static DataTable D_SetDataTable(Dictionary<string, List<Item>> data, HashSet<Item> column)
+        public static DataTable D_SetDataTable(Dictionary<string, List<Item>> data, HashSet<Item> column,int page)
         {
+            
             DataTable table = new DataTable();
             //Add column
             table.Columns.Add("TID",typeof(string));
@@ -21,22 +22,46 @@ namespace AprioriTID.DAO
             {
                 table.Columns.Add(item.Code,typeof(int));
             }
-
+            int startPage = 50 * page ;
+            int endPage = 50 * page + Constant.pageRange;
             //Add row
-            foreach(var item in data)
+            for (int i=startPage;i<endPage ; i++)
             {
                 DataRow row = table.NewRow();
-                row[0] = item.Key;
-                for(int i=0;i< item.Value.Count;i++)
+                row[0] = data.Keys.ElementAt(i);
+                for (int k = 0; k < data.Values.ElementAt(i).Count;k ++)
                 {
 
-                    row[i+1] = item.Value[i].Value;
+                    row[k+1] = data.Values.ElementAt(i)[k].Value;
                 }
                 table.Rows.Add(row);
             }
             return table;
         }
+        public static DataTable D_SetDataTable(Dictionary<string, List<Item>> data, HashSet<Item> column)
+        {
+            DataTable table = new DataTable();
+            //Add column
+            table.Columns.Add("TID", typeof(string));
+            foreach (var item in column)
+            {
+                table.Columns.Add(item.Code, typeof(int));
+            }
+           
+            //Add row
+            for (int i = 0; i < data.Count; i++)
+            {
+                DataRow row = table.NewRow();
+                row[0] = data.Keys.ElementAt(i);
+                for (int k = 0; k < data.Values.ElementAt(i).Count; k++)
+                {
 
+                    row[k + 1] = data.Values.ElementAt(i)[k].Value;
+                }
+                table.Rows.Add(row);
+            }
+            return table;
+        }
         public static DataTable ItemSetDataTable(HashSet<Item> data)
         {
             DataTable table = new DataTable();
@@ -63,6 +88,24 @@ namespace AprioriTID.DAO
                 DataRow row = table.NewRow();
                 row[0] = item.Key;
                 row[1] = ItemUtil.Display(item.Value);
+                table.Rows.Add(row);
+            }
+            return table;
+        }
+
+        public static DataTable F_SetDataTable(Dictionary<string, List<List<Item>>> data, int page)
+        {
+            DataTable table = new DataTable();
+            table.Columns.Add("TID", typeof(string));
+            table.Columns.Add("Tập mục", typeof(string));
+            int pageSize = data.Count / 50;
+            int startPage = 50 * page;
+            int endPage = 50 * page + pageSize;
+            for(int i = startPage;i <endPage;i++)
+            {
+                DataRow row = table.NewRow();
+                row[0] = data.ElementAt(i).Key;
+                row[1] = ItemUtil.Display(data.ElementAt(i).Value);
                 table.Rows.Add(row);
             }
             return table;

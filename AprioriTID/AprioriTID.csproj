@@ -132,7 +132,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\ErrorMessage.cs" />
+    <Compile Include="Model\ConnectionMessage.cs" />
     <Compile Include="Model\Item.cs" />
     <Compile Include="Model\Product.cs" />
     <Compile Include="Model\Step.cs" />

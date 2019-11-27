@@ -14,7 +14,7 @@ namespace AprioriTID.DAO
         public static Dictionary<List<Item>, int> FinalFI;
         public static HashSet<Item> ItemSet = new HashSet<Item>();
         public static List<Step> steps;
-        public static int MinSup;
+        public static double MinSup;
         public static int TotalTransaction = 0;
        
 
@@ -84,18 +84,18 @@ namespace AprioriTID.DAO
             }
         }
 
-        public static void GetData(int minSup)
+        public static bool GetData(double _minSup)
         {
-            
-
+            bool end = false;
+            MinSup = _minSup;
             SqlCommand command;
             SqlDataReader reader;
-            string sql = string.Format("exec [dbo].[SP_GIAOTAC] {0}", minSup);
+            string sql = string.Format("exec [dbo].[SP_GIAOTAC] {0}", _minSup);
             command = new SqlCommand(sql, Connection.conn);
             reader  =  command.ExecuteReader();
             D_Set = new Dictionary<string, List<Item>>();
             ItemSet = new HashSet<Item>();
-            MinSup = 0;
+           
             TotalTransaction = 0;
             while (reader.Read())
             {
@@ -113,11 +113,13 @@ namespace AprioriTID.DAO
                 }
                 D_Set.Add(reader[0].ToString(), set);
             }
-            MinSup = (minSup * TotalTransaction) / 100;
-            //ConnectionObj.CloseConnection();
+
+            Constant.PageSize = D_Set.Count / Constant.pageRange;
             reader.Close();
-           
-           
+
+            end = true;
+            return end;
+
         }
 
         public static Dictionary<List<Item>, int> apriori_gen(Dictionary<List<Item>, int> l, int k)
@@ -268,7 +270,7 @@ namespace AprioriTID.DAO
             }
             foreach (var item in c1)
             {
-                if (item.Value >= MinSup)
+                if (getMinSup(item.Value) >= MinSup)
                 {
                     l1.Add(item.Key, item.Value);
                 }
@@ -333,7 +335,7 @@ namespace AprioriTID.DAO
 
                 foreach (var item in C_Set)
                 {
-                    if (item.Value >= MinSup)
+                    if (getMinSup(item.Value) >= MinSup)
                     {
                         L_Set.Add(item.Key, item.Value);
                     }
@@ -353,12 +355,13 @@ namespace AprioriTID.DAO
                 }
             }
         }
-        public static void Run()
+        public static int Run()
         {
            
             Init();
             Generate();
-
+           
+            return 1;
         }
 
         public static List<Product> GetProducts()
@@ -394,6 +397,11 @@ namespace AprioriTID.DAO
             }
             reader.Close();
             return transactions;
+        }
+
+        public static double getMinSup(int value)
+        {
+            return (value * 100) / TotalTransaction;
         }
     }
 }
